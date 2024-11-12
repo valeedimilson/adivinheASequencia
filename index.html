@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Adivinhe a sequencia</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="app">
+      <div>
+        <div><fieldset><legend>Sua sequencia:</legend>
+            
+          <input
+            type="color"
+            id="cor_01"
+            list="opcoes"
+            onchange="marcaCor(this)"
+          />
+          <input
+            type="color"
+            id="cor_02"
+            list="opcoes"
+            onchange="marcaCor(this)"
+          />
+          <input
+            type="color"
+            id="cor_03"
+            list="opcoes"
+            onchange="marcaCor(this)"
+          />
+          <input
+            type="color"
+            id="cor_04"
+            list="opcoes"
+            onchange="marcaCor(this)"
+          />
+          <input
+            type="color"
+            id="cor_05"
+            list="opcoes"
+            onchange="marcaCor(this)"
+          />
+          </fieldset>
+        </div>
+        <div id="mostraResposta"><fieldset><legend>Sequencia sorteada:</legend>
+          <input
+            class="corResposta"
+            id="corResposta_01"
+            type="color"
+            list="opcoes"
+            disabled
+          />
+          <input
+            class="corResposta"
+            id="corResposta_02"
+            type="color"
+            list="opcoes"
+            disabled
+          />
+          <input
+            class="corResposta"
+            id="corResposta_03"
+            type="color"
+            list="opcoes"
+            disabled
+          />
+          <input
+            class="corResposta"
+            id="corResposta_04"
+            type="color"
+            list="opcoes"
+            disabled
+          />
+          <input
+            class="corResposta"
+            id="corResposta_05"
+            type="color"
+            list="opcoes"
+            disabled
+          />
+          </fieldset>
+        </div>
+      </div>
+
+      <div id="mensagem">Nenhum certo.</div>
+    </div>
+
+    <datalist id="opcoes">
+      <option value="#ff0000">vermelho</option>
+      <option value="#0000ff">azul</option>
+      <option value="#00ff00">verde</option>
+      <option value="#ffff00">amarelo</option>
+      <option value="#ff00ff">rosa</option>
+    </datalist>
+  </body>
+</html>
+
+<script src="script.js"></script>
