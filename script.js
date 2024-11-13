@@ -9,6 +9,8 @@ const coresDisponiveis = [
 const sequenciaUsuario = [];
 const sequenciaJogo = [];
 let totalTentativas = 0;
+let quantidadeAcertoAnterior = 0;
+let totalTentativasAnterior = 0;
 
 coresDisponiveis.forEach((cor) => {
   const opcao = document.createElement("option");
@@ -55,11 +57,44 @@ function verificaJogo() {
     }
   }
 
+  if (quantidadeAcerto > quantidadeAcertoAnterior) {
+    tocaSom("acertou");
+  }
+
+  if (
+    quantidadeAcerto <= quantidadeAcertoAnterior &&
+    totalTentativas > totalTentativasAnterior) {
+    tocaSom("errou");
+  }
+  quantidadeAcertoAnterior = quantidadeAcerto;
+  totalTentativasAnterior = totalTentativas;
+
   document.querySelector("#mensagem").innerHTML = `
     ${quantidadeAcerto} acertos<br>
     ${totalTentativas} tentativas.
       `;
   if (quantidadeAcerto == sequenciaJogo.length) {
     document.querySelector("#mostraResposta").style.display = "block";
+
+    tocaSom("vitoria");
   }
+}
+
+function tocaSom(som) {
+  const playerAudio = document.querySelector("#playerAudio");
+  if (playerAudio) {
+    document.body.removeChild(playerAudio);
+  }
+
+
+  const objSom = document.createElement("audio");
+  objSom.setAttribute("id", "playerAudio")
+  objSom.setAttribute("autoplay", true);
+  // objSom.setAttribute("controls", "true");
+  const objSomSource = document.createElement("source");
+  objSomSource.setAttribute("src", "/assets/audio/" + som + ".aac");
+  objSomSource.setAttribute("type", "audio/ogg");
+
+  document.body.appendChild(objSom);
+  objSom.appendChild(objSomSource);
 }
