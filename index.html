@@ -9,76 +9,75 @@
   <body>
     <div class="app">
       <div>
-        <div><fieldset><legend>Sua sequencia:</legend>
-            
-          <input
-            type="color"
-            id="cor_01"
-            list="opcoes"
-            onchange="marcaCor(this)"
-          />
-          <input
-            type="color"
-            id="cor_02"
-            list="opcoes"
-            onchange="marcaCor(this)"
-          />
-          <input
-            type="color"
-            id="cor_03"
-            list="opcoes"
-            onchange="marcaCor(this)"
-          />
-          <input
-            type="color"
-            id="cor_04"
-            list="opcoes"
-            onchange="marcaCor(this)"
-          />
-          <input
-            type="color"
-            id="cor_05"
-            list="opcoes"
-            onchange="marcaCor(this)"
-          />
+        <div>
+          <fieldset>
+            <legend>Sua sequencia:</legend>
+
+            <input
+              type="color"
+              id="cor_01"
+              list="coresDisponiveis"
+              onchange="marcaCor(this)"
+            />
+            <input
+              type="color"
+              id="cor_02"
+              list="coresDisponiveis"
+              onchange="marcaCor(this)"
+            />
+            <input
+              type="color"
+              id="cor_03"
+              list="coresDisponiveis"
+              onchange="marcaCor(this)"
+            />
+            <input
+              type="color"
+              id="cor_04"
+              list="coresDisponiveis"
+              onchange="marcaCor(this)"
+            />
+            <input
+              type="color"
+              id="cor_05"
+              list="coresDisponiveis"
+              onchange="marcaCor(this)"
+            />
           </fieldset>
         </div>
-        <div id="mostraResposta"><fieldset><legend>Sequencia sorteada:</legend>
-          <input
-            class="corResposta"
-            id="corResposta_01"
-            type="color"
-            list="opcoes"
-            disabled
-          />
-          <input
-            class="corResposta"
-            id="corResposta_02"
-            type="color"
-            list="opcoes"
-            disabled
-          />
-          <input
-            class="corResposta"
-            id="corResposta_03"
-            type="color"
-            list="opcoes"
-            disabled
-          />
-          <input
-            class="corResposta"
-            id="corResposta_04"
-            type="color"
-            list="opcoes"
-            disabled
-          />
-          <input
-            class="corResposta"
-            id="corResposta_05"
-            type="color"
-            list="opcoes"
-            disabled
-          />
+        <div id="mostraResposta">
+          <fieldset>
+            <legend>Sequencia sorteada:</legend>
+            <input
+              class="corResposta"
+              id="corResposta_01"
+              type="color"
+              disabled
+            />
+            <input
+              class="corResposta"
+              id="corResposta_02"
+              type="color"
+              disabled
+            />
+            <input
+              class="corResposta"
+              id="corResposta_03"
+              type="color"
+              disabled
+            />
+            <input
+              class="corResposta"
+              id="corResposta_04"
+              type="color"
+              disabled
+            />
+            <input
+              class="corResposta"
+              id="corResposta_05"
+              type="color"
+              disabled
+            />
           </fieldset>
         </div>
       </div>
@@ -86,13 +85,7 @@
       <div id="mensagem">Nenhum certo.</div>
     </div>
 
-    <datalist id="opcoes">
-      <option value="#ff0000">vermelho</option>
-      <option value="#0000ff">azul</option>
-      <option value="#00ff00">verde</option>
-      <option value="#ffff00">amarelo</option>
-      <option value="#ff00ff">rosa</option>
-    </datalist>
+    <datalist id="coresDisponiveis"></datalist>
   </body>
 </html>
 

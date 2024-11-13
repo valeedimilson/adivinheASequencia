@@ -1,22 +1,47 @@
-const sequenciaUsuario = ["#000", "#000", "#000", "#000", "#000"];
-const sequenciaJogo = ["#fff", "#fff", "#fff", "#fff", "#fff"];
+const coresDisponiveis = [
+  "#ff0000",
+  "#0000ff",
+  "#00ff00",
+  "#ffff00",
+  "#ff00ff",
+];
+
+const sequenciaUsuario = [];
+const sequenciaJogo = [];
 let totalTentativas = 0;
 
+coresDisponiveis.forEach((cor) => {
+  const opcao = document.createElement("option");
+  opcao.value = cor;
+  document.querySelector("#coresDisponiveis").appendChild(opcao);
+});
+
 function numeroAleatorio() {
-  let num = Math.round(Math.random() * 4);
-  return num;
+  return Math.round(Math.random() * 4);
 }
 
-for (let x = 0; x < sequenciaJogo.length; x++) {
-  let num = numeroAleatorio();
-  sequenciaJogo[x] = document.querySelector("datalist").options[num].value;
-  document.querySelectorAll(".corResposta")[x].value = sequenciaJogo[x];
+function GeraListaSorteada() {
+  let numAle = numeroAleatorio();
+  corRepetida = sequenciaJogo.filter((atual) => {
+    if (atual == coresDisponiveis[numAle]) {
+      return true;
+    }
+  });
+
+  if (corRepetida.length == 0) {
+    sequenciaJogo.push(coresDisponiveis[numAle]);
+    document.querySelectorAll(".corResposta")[sequenciaJogo.length - 1].value =
+      coresDisponiveis[numAle];
+  }
+  if (sequenciaJogo.length < coresDisponiveis.length) {
+    GeraListaSorteada();
+  }
 }
+GeraListaSorteada();
 
 function marcaCor(elemento) {
-  const posicao = parseInt(elemento.id.replace("cor_", "")) - 1;
-  sequenciaUsuario[posicao] = elemento.value;
-
+  sequenciaUsuario[parseInt(elemento.id.replace("cor_", "")) - 1] =
+    elemento.value;
   verificaJogo();
 }
 
