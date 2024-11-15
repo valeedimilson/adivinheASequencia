@@ -7,10 +7,10 @@ let sequenceCorrect = 0;
 let sequenceRandom = [];
 
 const soundRepository = {
-  hit: "/assets/audio/collect-ring-15982.mp3",
-  miss: "/assets/audio/error-8-206492.mp3",
-  win: "/assets/audio/piglevelwin2mp3-14800.mp3",
-  lose: "/assets/audio/brass-fail-8-a-207130.mp3",
+  hit: "assets/audio/collect-ring-15982.mp3",
+  miss: "assets/audio/error-8-206492.mp3",
+  win: "assets/audio/piglevelwin2mp3-14800.mp3",
+  lose: "assets/audio/brass-fail-8-a-207130.mp3",
 };
 
 const colorsAvailable = ["#ff0000", "#0000ff", "#00ff00", "#980000", "#9900ff"];
@@ -137,20 +137,20 @@ function verifyGameState(state) {
     document
       .querySelector(".gameWinScreenLose")
       .querySelector("h3").textContent = "";
-    
+
     playSound("lose");
   }
   if (heartCount > 0 && sequenceCorrect == sequenceRandom.length) {
     playSound("win");
   }
-    if (
-      heartCount <= 0 ||
-      (heartCount > 0 && sequenceCorrect == sequenceRandom.length)
-    ) {
-      gameRunning = false;
-      document.querySelector(".gameContent").classList.remove("show");
-      document.querySelector(".gameWinScreenLose").classList.add("show");
-    }
+  if (
+    heartCount <= 0 ||
+    (heartCount > 0 && sequenceCorrect == sequenceRandom.length)
+  ) {
+    gameRunning = false;
+    document.querySelector(".gameContent").classList.remove("show");
+    document.querySelector(".gameWinScreenLose").classList.add("show");
+  }
 }
 
 function markColor(obj, position) {
