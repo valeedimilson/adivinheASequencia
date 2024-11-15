@@ -20,13 +20,13 @@ O jogo consiste em adivinhar a sequência correta de cores gerada aleatoriamente
 
 ## Instalação
 
-Para rodar o projeto localmente, siga os passos abaixo:
+Para rodar o projeto localmente, acesse o link: [https://valeedimilson.github.io/adivinheASequencia/](https://valeedimilson.github.io/adivinheASequencia/) ou siga os passos abaixo:
 
 1. Clone o repositório:
+
    ```bash
    git clone https://github.com/valeedimilson/adivinheASequencia.git
    ```
-
 
 2. Abra o projeto no VSCode ou em outro editor de sua preferência.
 3. Instale a extensão **Live Server** no VSCode para rodar o projeto de forma fácil.
