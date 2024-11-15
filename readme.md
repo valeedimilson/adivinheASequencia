@@ -1,4 +1,3 @@
-````markdown
 # Adivinhe a Sequência
 
 ![Logo do Projeto](https://raw.githubusercontent.com/valeedimilson/adivinheASequencia/refs/heads/main/assets/images/logo.webp)
@@ -27,7 +26,7 @@ Para rodar o projeto localmente, siga os passos abaixo:
    ```bash
    git clone https://github.com/valeedimilson/adivinheASequencia.git
    ```
-````
+
 
 2. Abra o projeto no VSCode ou em outro editor de sua preferência.
 3. Instale a extensão **Live Server** no VSCode para rodar o projeto de forma fácil.
@@ -62,7 +61,3 @@ Este projeto utiliza efeitos sonoros do site [Pixabay](https://pixabay.com/), co
 ## Licença
 
 Este projeto está licenciado sob a [Licença MIT](LICENSE).
-
-```
-
-```
