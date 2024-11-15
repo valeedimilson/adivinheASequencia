@@ -1,46 +1,154 @@
-* {
-  margin: 0px;
-  padding: 0px;
-  box-sizing: border-box;
+@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
+
+:root {
+  --appBgColor: #fff;
+  --appFontColor: #1d88b9;
+
+  --buttonBgColor: #1d88b9;
+  --buttonFontColor: #fff;
+  --buttonGlowColor: #0ff;
 }
+
+* {
+  padding: 0px;
+  margin: 0px;
+  box-sizing: border-box;
+
+  font-family: "Press Start 2P", system-ui;
+  font-style: normal;
+  color: var(--appFontColor);
+  text-shadow: 1px 1px 1px #000;
+}
+
 body {
   width: 100vw;
   height: 100vh;
+
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: #cecece;
 
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: #144858;
 }
 
 .app {
   width: 70%;
-  height: 60%;
-  border: 1px solid black;
-  border-radius: 8px;
-  box-shadow: 5px 5px 10px black;
+  height: 450px;
 
-  background-color: #fff;
+  background-color: var(--appBgColor);
+  border: 1px solid #000;
+  border-radius: 16px;
+
+  box-shadow: 3px 2px 5px #000;
+
+  padding: 15px;
 
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  padding: 20px;
+}
 
-  & fieldset{
-    padding: 10px;
+.header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+
+  & .logoContainer {
+    & img {
+      border-radius: 100%;
+      filter: drop-shadow(2px 2px 5px black);
+      height: 70px;
+    }
+  }
+
+  & .statusBarContainer {
+    flex-grow: 2;
+
+    display: flex;
+    justify-content: space-between;
+
+    padding-top: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
   }
 }
 
-input {
-  width: 70px;
-  height: 30px;
-  border: 1px solid black;
+.content {
+  width: 100%;
+  height: 100%;
+  flex-grow: 2;
+
+  & button {
+    border: 1px solid #000;
+    border-radius: 8px;
+    box-shadow: 2px 2px 1px #0f465f;
+    background-color: var(--buttonBgColor);
+
+    width: 200px;
+    height: 50px;
+
+    cursor: pointer;
+
+    & span {
+      color: var(--buttonFontColor);
+      filter: drop-shadow(1px 1px 1px #000);
+    }
+  }
+  & button:hover {
+    box-shadow: 2px 2px 1px #1d88b9;
+    background-color: #0f465f;
+  }
 }
 
-#mostraResposta {
+.gameContent {
+  width: 100%;
+  height: 100%;
   display: none;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+
+  & div {
+    text-align: center;
+    padding-bottom: 10px;
+  }
+}
+
+.gameWinScreenLose {
+  width: 100%;
+  height: 100%;
+  display: none;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+
+  & div {
+    text-align: center;
+    padding-bottom: 10px;
+  }
+  & h1 {
+    padding-bottom: 10px;
+  }
+}
+
+.show {
+  display: flex;
+}
+
+input:focus {
+  /* box-shadow: 0px 0px 10px 10px #0ff; */
+
+  border: 1px solid var(--buttonGlowColor);
+}
+
+@media only screen and (max-width: 400px) {
+  .header,
+  .content {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+
+    font-size: 0.95em;
+  }
 }

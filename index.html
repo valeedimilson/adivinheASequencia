@@ -5,88 +5,79 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Adivinhe a sequencia</title>
     <link rel="stylesheet" href="style.css" />
+    <link rel="shortcut icon" href="assets/images/logo.webp" type="image/x-icon">
+    <script src="script.js" defer></script>
   </head>
   <body>
     <div class="app">
-      <div>
-        <div>
-          <fieldset>
-            <legend>Sua sequencia:</legend>
-
-            <input
-              type="color"
-              id="cor_01"
-              list="coresDisponiveis"
-              onchange="marcaCor(this)"
-            />
-            <input
-              type="color"
-              id="cor_02"
-              list="coresDisponiveis"
-              onchange="marcaCor(this)"
-            />
-            <input
-              type="color"
-              id="cor_03"
-              list="coresDisponiveis"
-              onchange="marcaCor(this)"
-            />
-            <input
-              type="color"
-              id="cor_04"
-              list="coresDisponiveis"
-              onchange="marcaCor(this)"
-            />
-            <input
-              type="color"
-              id="cor_05"
-              list="coresDisponiveis"
-              onchange="marcaCor(this)"
-            />
-          </fieldset>
-        </div>
-        <div id="mostraResposta">
-          <fieldset>
-            <legend>Sequencia sorteada:</legend>
-            <input
-              class="corResposta"
-              id="corResposta_01"
-              type="color"
-              disabled
-            />
-            <input
-              class="corResposta"
-              id="corResposta_02"
-              type="color"
-              disabled
-            />
-            <input
-              class="corResposta"
-              id="corResposta_03"
-              type="color"
-              disabled
-            />
-            <input
-              class="corResposta"
-              id="corResposta_04"
-              type="color"
-              disabled
-            />
-            <input
-              class="corResposta"
-              id="corResposta_05"
-              type="color"
-              disabled
-            />
-          </fieldset>
+      <div class="header">
+        <div class="logoContainer"><img src="assets/images/logo.webp" /></div>
+        <div class="statusBarContainer">
+          <div class="statusBarContainerCorrects">💠 0/5</div>
+          <div class="statusBarContainerClock">⏱️ 00:00</div>
+          <div class="statusBarContainerHearts">🖤🖤🖤🖤🖤</div>
         </div>
       </div>
-
-      <div id="mensagem">Nenhum certo.</div>
+      <div class="content">
+        <div class="gameContent show">
+          <div>Sua sequência:</div>
+          <div class="gameColorPlayerInputs">
+            <input type="color" class="gameColorPlayer" list="colourList" />
+            <input type="color" class="gameColorPlayer" list="colourList" />
+            <input type="color" class="gameColorPlayer" list="colourList" />
+            <input type="color" class="gameColorPlayer" list="colourList" />
+            <input type="color" class="gameColorPlayer" list="colourList" />
+          </div>
+        </div>
+        <div class="gameWinScreenLose">
+          <div>
+            <h1>Parabéns !!!</h1>
+            <h3>Você acertou a sequência</h3>
+          </div>
+          <div class="gameColorRandomInputs">
+            <div>sequência sorteada:</div>
+            <div>
+              <input
+                type="color"
+                class="gameColorRandom"
+                list="colourList"
+                disabled
+              />
+              <input
+                type="color"
+                class="gameColorRandom"
+                list="colourList"
+                disabled
+              />
+              <input
+                type="color"
+                class="gameColorRandom"
+                list="colourList"
+                disabled
+              />
+              <input
+                type="color"
+                class="gameColorRandom"
+                list="colourList"
+                disabled
+              />
+              <input
+                type="color"
+                class="gameColorRandom"
+                list="colourList"
+                disabled
+              />
+            </div>
+          </div>
+          <div>
+            <button class="buttonRestart"><span>Jogar Novamente</span></button>
+          </div>
+        </div>
+      </div>
     </div>
-
-    <datalist id="coresDisponiveis"></datalist>
+    <noscript
+      ><h1>Ops!!!</h1>
+      <h2>parece que o seu navegador não permite Javascript</h2></noscript
+    >
   </body>
 </html>
-
-<script src="script.js"></script>

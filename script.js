@@ -1,100 +1,185 @@
-const coresDisponiveis = [
-  "#ff0000",
-  "#0000ff",
-  "#00ff00",
-  "#ffff00",
-  "#ff00ff",
-];
+let gameRunning = true;
 
-const sequenciaUsuario = [];
-const sequenciaJogo = [];
-let totalTentativas = 0;
-let quantidadeAcertoAnterior = 0;
-let totalTentativasAnterior = 0;
+const heartIcons = ["❤️", "🖤"];
+const heartMax = 7;
+let heartCount = heartMax;
+let sequenceCorrect = 0;
+let sequenceRandom = [];
 
-coresDisponiveis.forEach((cor) => {
-  const opcao = document.createElement("option");
-  opcao.value = cor;
-  document.querySelector("#coresDisponiveis").appendChild(opcao);
-});
+const soundRepository = {
+  hit: "/assets/audio/collect-ring-15982.mp3",
+  miss: "/assets/audio/error-8-206492.mp3",
+  win: "/assets/audio/piglevelwin2mp3-14800.mp3",
+  lose: "/assets/audio/brass-fail-8-a-207130.mp3",
+};
 
-function numeroAleatorio() {
-  return Math.round(Math.random() * 4);
+const colorsAvailable = ["#ff0000", "#0000ff", "#00ff00", "#980000", "#9900ff"];
+
+const clockIcon = "⏱️";
+const sequenceIcon = "💠";
+
+const statusBarContainerCorrects = document.querySelector(
+  ".statusBarContainerCorrects"
+);
+const statusBarContainerClock = document.querySelector(
+  ".statusBarContainerClock"
+);
+const statusBarContainerHearts = document.querySelector(
+  ".statusBarContainerHearts"
+);
+
+const gameColorPlayer = document.querySelectorAll(".gameColorPlayer");
+const gameColorRandom = document.querySelectorAll(".gameColorRandom");
+
+function drawCorrects() {
+  statusBarContainerCorrects.textContent = `${sequenceIcon} ${sequenceCorrect}/${gameColorPlayer.length}`;
 }
 
-function GeraListaSorteada() {
-  let numAle = numeroAleatorio();
-  corRepetida = sequenciaJogo.filter((atual) => {
-    if (atual == coresDisponiveis[numAle]) {
-      return true;
+function drawHearts() {
+  let hearts = "";
+
+  for (let x = 0; x < heartCount; x++) {
+    hearts += heartIcons[0];
+  }
+
+  statusBarContainerHearts.textContent = hearts.padStart(
+    heartMax * 2,
+    heartIcons[1]
+  );
+}
+
+let minutes = 0;
+let seconds = 0;
+function drawClock() {
+  if (seconds <= 59) {
+    seconds++;
+  } else {
+    seconds = 0;
+    minutes++;
+  }
+  statusBarContainerClock.textContent = `${clockIcon} ${String(
+    minutes
+  ).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
+}
+
+function createDataList() {
+  const list = document.createElement("datalist");
+  list.id = "colourList";
+  colorsAvailable.forEach((color) => {
+    const option = document.createElement("option");
+    option.value = color;
+    list.appendChild(option);
+  });
+
+  document.body.appendChild(list);
+}
+createDataList();
+
+function createRandomSequence() {
+  while (sequenceRandom.length < colorsAvailable.length) {
+    const randomNumber = Math.floor(Math.random() * colorsAvailable.length);
+
+    if (!sequenceRandom.includes(randomNumber)) {
+      sequenceRandom.push(randomNumber);
+    }
+  }
+
+  gameColorRandom.forEach((thisGameColorRandom, index) => {
+    thisGameColorRandom.value = colorsAvailable[sequenceRandom[index]];
+  });
+}
+createRandomSequence();
+
+function playSound(sound) {
+  let playSoundObj = document.querySelector("#playSoundObj");
+  if (!playSoundObj) {
+    playSoundObj = document.createElement("audio");
+    playSoundObj.id = "playSoundObj";
+    document.body.appendChild(playSoundObj);
+  }
+
+  playSoundObj.src = soundRepository[sound];
+  playSoundObj.setAttribute("autoplay", "");
+}
+
+function verifyGameState(state) {
+  switch (state) {
+    case "hit":
+      playSound("hit");
+      break;
+    case "miss":
+      heartCount--;
+      playSound("miss");
+      drawHearts();
+      break;
+    default:
+      console.log("option invalid!");
+      break;
+  }
+
+  sequenceCorrect = 0;
+  gameColorPlayer.forEach((itemPlayer, index) => {
+    if (itemPlayer.value == gameColorRandom[index].value) {
+      sequenceCorrect++;
     }
   });
 
-  if (corRepetida.length == 0) {
-    sequenciaJogo.push(coresDisponiveis[numAle]);
-    document.querySelectorAll(".corResposta")[sequenciaJogo.length - 1].value =
-      coresDisponiveis[numAle];
+  drawCorrects();
+
+  if (heartCount <= 0) {
+    gameColorPlayer.forEach((itemPlayer) => {
+      itemPlayer.setAttribute("disabled", "");
+    });
+
+    document
+      .querySelector(".gameWinScreenLose")
+      .querySelector("h1").textContent = "Ops!!! Não foi desta vez... :(";
+    document
+      .querySelector(".gameWinScreenLose")
+      .querySelector("h3").textContent = "";
+    
+    playSound("lose");
   }
-  if (sequenciaJogo.length < coresDisponiveis.length) {
-    GeraListaSorteada();
+  if (heartCount > 0 && sequenceCorrect == sequenceRandom.length) {
+    playSound("win");
   }
+    if (
+      heartCount <= 0 ||
+      (heartCount > 0 && sequenceCorrect == sequenceRandom.length)
+    ) {
+      gameRunning = false;
+      document.querySelector(".gameContent").classList.remove("show");
+      document.querySelector(".gameWinScreenLose").classList.add("show");
+    }
 }
-GeraListaSorteada();
 
-function marcaCor(elemento) {
-  sequenciaUsuario[parseInt(elemento.id.replace("cor_", "")) - 1] =
-    elemento.value;
-  verificaJogo();
-}
-
-function verificaJogo() {
-  totalTentativas++;
-  let quantidadeAcerto = 0;
-
-  for (let x = 0; x < sequenciaJogo.length; x++) {
-    if (sequenciaJogo[x] == sequenciaUsuario[x]) {
-      quantidadeAcerto++;
+function markColor(obj, position) {
+  if (gameRunning) {
+    if (obj.value == colorsAvailable[sequenceRandom[position]]) {
+      verifyGameState("hit");
+    } else {
+      verifyGameState("miss");
     }
   }
-
-  if (quantidadeAcerto > quantidadeAcertoAnterior) {
-    tocaSom("acertou");
-  }
-
-  if (
-    quantidadeAcerto <= quantidadeAcertoAnterior &&
-    totalTentativas > totalTentativasAnterior) {
-    tocaSom("errou");
-  }
-  quantidadeAcertoAnterior = quantidadeAcerto;
-  totalTentativasAnterior = totalTentativas;
-
-  document.querySelector("#mensagem").innerHTML = `
-    ${quantidadeAcerto} acertos<br>
-    ${totalTentativas} tentativas.
-      `;
-  if (quantidadeAcerto == sequenciaJogo.length) {
-    document.querySelector("#mostraResposta").style.display = "block";
-
-    tocaSom("vitoria");
-  }
 }
+gameColorPlayer.forEach((thisGameColorPlayer, position) => {
+  thisGameColorPlayer.addEventListener("change", function () {
+    markColor(thisGameColorPlayer, position);
+  });
+});
 
-function tocaSom(som) {
-  const playerAudio = document.querySelector("#playerAudio");
-  if (playerAudio) {
-    document.body.removeChild(playerAudio);
-  }
-
-
-  const objSom = document.createElement("audio");
-  objSom.setAttribute("id", "playerAudio")
-  objSom.setAttribute("autoplay", true);
-  // objSom.setAttribute("controls", "true");
-  const objSomSource = document.createElement("source");
-  objSomSource.setAttribute("src", "/assets/audio/" + som + ".aac");
-  objSomSource.setAttribute("type", "audio/ogg");
-
-  document.body.appendChild(objSom);
-  objSom.appendChild(objSomSource);
+function restartGame() {
+  location.href = location.href;
 }
+document.querySelector(".buttonRestart").addEventListener("click", function () {
+  restartGame();
+});
+
+setInterval(function () {
+  if (gameRunning) {
+    drawClock();
+  }
+}, 1000);
+
+drawHearts();
+drawCorrects();
